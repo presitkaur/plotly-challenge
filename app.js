@@ -3,9 +3,9 @@
 function getcharts(sample){
     //Get the appropriate data within the "samples.json" file with D3
     d3.json("samples.json").then((data) => {
-        var samples = data.sample;
+        var samples = data.samples;
         //Access the samples array for individuals in the data using the "filter" function
-        var resultsArr = samples.filter(objVal => objVal.id == sample);
+        var resultsArr = samples.filter(sampleObj => sampleObj.id == sample);
         //Variable to reference the specific information for each individual 
         var results = resultsArr[0];
 
@@ -46,7 +46,7 @@ function getcharts(sample){
                 marker: {
                     size: sample_values,
                     color: otu_id,
-                    colorscale: 'Picnic',
+                    colorscale: 'Jet',
                 }
             }
         ];
@@ -79,8 +79,29 @@ function metadata(sample) {
         metadataPanel.html("");
 
         //"Object.entries()" will insert each key value and pair to the panel 
-        Object.entries(val).forEach(([key, value]) => {
+        Object.entries(results).forEach(([key, value]) => {
             metadataPanel.append("h6").text(`${key.toUpperCase()}: ${value}`);
         });
     });
 }
+
+function intialise() {
+    //Select the tag for the dropdown element in the HTML file using d3
+    var dropdown = d3.select("#selDataset");
+
+    //Obtain the subject names from the data file and then add to the dropdown menu
+    d3.json("samples.json").then((data) => {
+        var names = data.names;
+        names.forEach((sample) => {
+            dropdown
+                .append("option").text(sample).property("value",sample);
+        });
+
+        //Use any sample to create the initial plots. In this instance we will use the 22nd sample
+        var initSample = names[21];
+        getcharts(initSample);
+        metadata(initSample);
+    });
+}
+
+intialise();
