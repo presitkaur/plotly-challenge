@@ -61,3 +61,26 @@ function getcharts(sample){
     });
 }
 
+//Function for the metadata panel 
+
+function metadata(sample) {
+    //Get the appropriate data within the "samples.json" file with D3
+    d3.json("samples.json").then((data) => {
+        var metadata = data.metadata;
+        //Access the metadata array for individuals in the data using the "filter" function
+        var resultsArr = metadata.filter(objVal => objVal.id == sample);
+        //Variable to reference the specific information for each individual 
+        var results = resultsArr[0];
+
+        //Select the tag for the metadata panel in the HTML file using d3
+        var metadataPanel = d3.select("#sample-metadata");
+
+        //Clear any existing data in the panel 
+        metadataPanel.html("");
+
+        //"Object.entries()" will insert each key value and pair to the panel 
+        Object.entries(val).forEach(([key, value]) => {
+            metadataPanel.append("h6").text(`${key.toUpperCase()}: ${value}`);
+        });
+    });
+}
