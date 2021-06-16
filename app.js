@@ -85,6 +85,7 @@ function metadata(sample) {
     });
 }
 
+//Create an initaliser function so that something can be seen when the page is opened 
 function intialise() {
     //Select the tag for the dropdown element in the HTML file using d3
     var dropdown = d3.select("#selDataset");
@@ -102,6 +103,12 @@ function intialise() {
         getcharts(initSample);
         metadata(initSample);
     });
+}
+
+//Created a function so that all features are updated based on what is selected in the drop down menu 
+function optionChanged(newSample) {
+    getcharts(newSample);
+    metadata(newSample);
 }
 
 intialise();
