@@ -81,6 +81,10 @@ function metadata(sample) {
         //"Object.entries()" will insert each key value and pair to the panel 
         Object.entries(results).forEach(([key, value]) => {
             metadataPanel.append("h6").text(`${key.toUpperCase()}: ${value}`);
+
+        //Tag for the bonus gauge chart 
+        buildGauge(result.wfreq);
+        
         });
     });
 }
