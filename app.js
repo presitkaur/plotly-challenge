@@ -83,8 +83,8 @@ function metadata(sample) {
             metadataPanel.append("h6").text(`${key.toUpperCase()}: ${value}`);
 
         //Tag for the bonus gauge chart 
-        buildGauge(result.wfreq);
-        
+        buildGauge(results.wfreq);
+
         });
     });
 }
